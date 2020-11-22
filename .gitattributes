@@ -1,1 +1,1 @@
-*.ilk filter=lfs diff=lfs merge=lfs -text
+lib/assimp-vc142-mtd.ilk filter=lfs diff=lfs merge=lfs -text
