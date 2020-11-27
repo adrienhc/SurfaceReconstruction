@@ -1,2 +1,0 @@
-C:\Users\Bon\CS269\SurfaceReconstruction\x64\Debug\SurfaceReconstruction.exe
-C:\Users\Bon\CS269\SurfaceReconstruction\x64\Debug\SurfaceReconstruction.pdb

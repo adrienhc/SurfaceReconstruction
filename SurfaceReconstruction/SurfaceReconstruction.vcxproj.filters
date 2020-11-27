@@ -16,6 +16,57 @@
     <Filter Include="Source Files\glad">
       <UniqueIdentifier>{999cb624-2a3c-49f8-9f66-4b1a1b26bd11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\rendering">
+      <UniqueIdentifier>{2ba79fda-cfe0-4e41-b556-9ac618697d04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rendering\batch">
+      <UniqueIdentifier>{8989e234-c915-4c06-9c8e-cf1f20c0b73e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rendering\layers">
+      <UniqueIdentifier>{ae088cb0-8170-4f29-99a1-c5ae53bf4e56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\geometry">
+      <UniqueIdentifier>{7b0fadfc-a53e-436b-ab5a-98139268da60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\material_system">
+      <UniqueIdentifier>{747034ac-9fde-41bc-8a8f-5ad08880e2d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\particle_system">
+      <UniqueIdentifier>{bfc13141-8b20-461b-a0f4-e950d1626e38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\player">
+      <UniqueIdentifier>{1fac0d30-55a8-449b-8473-12cf254e9491}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene">
+      <UniqueIdentifier>{24970650-608d-4930-a61e-014c10421f2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shaders">
+      <UniqueIdentifier>{bb604708-56a3-42b9-aea4-cd69b0cee05e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shaders\batch">
+      <UniqueIdentifier>{36006d98-fd94-45f6-a98f-3f4562e5a04c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shaders\particles">
+      <UniqueIdentifier>{480c0783-bb0f-4a22-9ac8-67d4bd58c420}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shaders\postprocessing">
+      <UniqueIdentifier>{58fd584e-1def-442a-9179-edbb524a29eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shaders\simple">
+      <UniqueIdentifier>{ea2042e9-dced-4b5d-ab38-39477f685660}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shaders\utils">
+      <UniqueIdentifier>{b91e4fdb-3fc0-4c5d-b4ec-04d75a80353d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\skybox">
+      <UniqueIdentifier>{e0a5692e-c20f-4308-ac53-5f620455c6a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\textures">
+      <UniqueIdentifier>{d46cc529-d041-4774-a94e-024c84b0adba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{d3d047dc-1c3a-4b02-b364-70f1ae05ecd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\glad\src\glad.c">
@@ -24,5 +75,494 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rendering\camera.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\frustum.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\group.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\light.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\renderer.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\shader.cpp">
+      <Filter>Source Files\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\batch\batchdepthmap.cpp">
+      <Filter>Source Files\rendering\batch</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\batch\batchinstanced.cpp">
+      <Filter>Source Files\rendering\batch</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\batch\batchoutline.cpp">
+      <Filter>Source Files\rendering\batch</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\batch\batchparticle.cpp">
+      <Filter>Source Files\rendering\batch</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\batch\batchrenderer.cpp">
+      <Filter>Source Files\rendering\batch</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\layers\abstractlayer.cpp">
+      <Filter>Source Files\rendering\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\layers\depthmaplayer.cpp">
+      <Filter>Source Files\rendering\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\layers\instancedlayer.cpp">
+      <Filter>Source Files\rendering\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\layers\outlinelayer.cpp">
+      <Filter>Source Files\rendering\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\layers\particlelayer.cpp">
+      <Filter>Source Files\rendering\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering\layers\scenelayer.cpp">
+      <Filter>Source Files\rendering\layers</Filter>
+    </ClCompile>
+    <ClCompile Include="geometry\geometry.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="geometry\mesh.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="geometry\model.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="geometry\stairs.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="geometry\target.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="geometry\weapon.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="geometry\cluster.cpp">
+      <Filter>Source Files\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="material_system\asset.cpp">
+      <Filter>Source Files\material_system</Filter>
+    </ClCompile>
+    <ClCompile Include="material_system\material.cpp">
+      <Filter>Source Files\material_system</Filter>
+    </ClCompile>
+    <ClCompile Include="material_system\texture.cpp">
+      <Filter>Source Files\material_system</Filter>
+    </ClCompile>
+    <ClCompile Include="particle_system\particle.cpp">
+      <Filter>Source Files\particle_system</Filter>
+    </ClCompile>
+    <ClCompile Include="particle_system\particle_system.cpp">
+      <Filter>Source Files\particle_system</Filter>
+    </ClCompile>
+    <ClCompile Include="player\player.cpp">
+      <Filter>Source Files\player</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\room.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\scene.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\skybox.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\collision.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="config.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\camera.h">
+      <Filter>Source Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\frustum.h">
+      <Filter>Source Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\group.h">
+      <Filter>Source Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\light.h">
+      <Filter>Source Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\renderer.h">
+      <Filter>Source Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\shader.h">
+      <Filter>Source Files\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\batch\batchabstract.h">
+      <Filter>Source Files\rendering\batch</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\batch\batchdepthmap.h">
+      <Filter>Source Files\rendering\batch</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\batch\batchinstanced.h">
+      <Filter>Source Files\rendering\batch</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\batch\batchoutline.h">
+      <Filter>Source Files\rendering\batch</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\batch\batchparticle.h">
+      <Filter>Source Files\rendering\batch</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\batch\batchrenderer.h">
+      <Filter>Source Files\rendering\batch</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\batch\VertexData.h">
+      <Filter>Source Files\rendering\batch</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\layers\abstractlayer.h">
+      <Filter>Source Files\rendering\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\layers\depthmaplayer.h">
+      <Filter>Source Files\rendering\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\layers\instancedlayer.h">
+      <Filter>Source Files\rendering\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\layers\outlinelayer.h">
+      <Filter>Source Files\rendering\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\layers\particlelayer.h">
+      <Filter>Source Files\rendering\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\layers\scenelayer.h">
+      <Filter>Source Files\rendering\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\layers\weaponlayer.h">
+      <Filter>Source Files\rendering\layers</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry\cluster.h">
+      <Filter>Source Files\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry\geometry.h">
+      <Filter>Source Files\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry\mesh.h">
+      <Filter>Source Files\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry\model.h">
+      <Filter>Source Files\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry\stairs.h">
+      <Filter>Source Files\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry\target.h">
+      <Filter>Source Files\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry\weapon.h">
+      <Filter>Source Files\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry\bounding_box.h">
+      <Filter>Source Files\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="material_system\asset.h">
+      <Filter>Source Files\material_system</Filter>
+    </ClInclude>
+    <ClInclude Include="material_system\material.h">
+      <Filter>Source Files\material_system</Filter>
+    </ClInclude>
+    <ClInclude Include="material_system\texture.h">
+      <Filter>Source Files\material_system</Filter>
+    </ClInclude>
+    <ClInclude Include="particle_system\particle.h">
+      <Filter>Source Files\particle_system</Filter>
+    </ClInclude>
+    <ClInclude Include="particle_system\particle_system.h">
+      <Filter>Source Files\particle_system</Filter>
+    </ClInclude>
+    <ClInclude Include="player\player.h">
+      <Filter>Source Files\player</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\room.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\scene.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\scenegraph.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\skybox.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\collision.h">
+      <Filter>Source Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\outline.h">
+      <Filter>Source Files\utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\batch\batchShader.fs">
+      <Filter>Source Files\shaders\batch</Filter>
+    </None>
+    <None Include="shaders\batch\batchShader.vs">
+      <Filter>Source Files\shaders\batch</Filter>
+    </None>
+    <None Include="shaders\batch\depthShader.fs">
+      <Filter>Source Files\shaders\batch</Filter>
+    </None>
+    <None Include="shaders\batch\depthShader.gs">
+      <Filter>Source Files\shaders\batch</Filter>
+    </None>
+    <None Include="shaders\batch\depthShader.vs">
+      <Filter>Source Files\shaders\batch</Filter>
+    </None>
+    <None Include="shaders\batch\outlineShader.fs">
+      <Filter>Source Files\shaders\batch</Filter>
+    </None>
+    <None Include="shaders\batch\outlineShader.vs">
+      <Filter>Source Files\shaders\batch</Filter>
+    </None>
+    <None Include="shaders\particles\particleCubeShader.gs">
+      <Filter>Source Files\shaders\particles</Filter>
+    </None>
+    <None Include="shaders\particles\particleLineShader.gs">
+      <Filter>Source Files\shaders\particles</Filter>
+    </None>
+    <None Include="shaders\particles\particlePointShader.gs">
+      <Filter>Source Files\shaders\particles</Filter>
+    </None>
+    <None Include="shaders\particles\particleShader.fs">
+      <Filter>Source Files\shaders\particles</Filter>
+    </None>
+    <None Include="shaders\particles\particleShader.vs">
+      <Filter>Source Files\shaders\particles</Filter>
+    </None>
+    <None Include="shaders\postprocessing\blurCubemapFace.fs">
+      <Filter>Source Files\shaders\postprocessing</Filter>
+    </None>
+    <None Include="shaders\postprocessing\blurCubemapFace.gs">
+      <Filter>Source Files\shaders\postprocessing</Filter>
+    </None>
+    <None Include="shaders\postprocessing\blurCubemapFace.vs">
+      <Filter>Source Files\shaders\postprocessing</Filter>
+    </None>
+    <None Include="shaders\simple\depthShader.fs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\depthShader.gs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\depthShader.vs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\explodeCubeShader.fs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\explodeCubeShader.gs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\explodeShader.gs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\explodeShader.vs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\instancedShader.fs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\instancedShader.vs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\lightningShader.fs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\lightningShader.vs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\lightShader.fs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\lightShader.vs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\modelShader.fs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\modelShader.vs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\outlineShader.fs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\outlineShader.vs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\shader.fs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\shader.vs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\skyboxShader.fs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\simple\skyboxShader.vs">
+      <Filter>Source Files\shaders\simple</Filter>
+    </None>
+    <None Include="shaders\utils\bilateralFilterCubemap.fs">
+      <Filter>Source Files\shaders\utils</Filter>
+    </None>
+    <None Include="shaders\utils\blurCubemap.gs">
+      <Filter>Source Files\shaders\utils</Filter>
+    </None>
+    <None Include="shaders\utils\blurCubemap.vs">
+      <Filter>Source Files\shaders\utils</Filter>
+    </None>
+    <None Include="shaders\utils\copyCubemap.fs">
+      <Filter>Source Files\shaders\utils</Filter>
+    </None>
+    <None Include="shaders\utils\copyCubemap.gs">
+      <Filter>Source Files\shaders\utils</Filter>
+    </None>
+    <None Include="shaders\utils\copyCubemap.vs">
+      <Filter>Source Files\shaders\utils</Filter>
+    </None>
+    <None Include="shaders\utils\gausBlurCubemap.fs">
+      <Filter>Source Files\shaders\utils</Filter>
+    </None>
+    <None Include="shaders\utils\gausBlurVsmCubemap.fs">
+      <Filter>Source Files\shaders\utils</Filter>
+    </None>
+    <None Include="textures\floornoborder.xcf">
+      <Filter>Source Files\textures</Filter>
+    </None>
+    <None Include="textures\floortex.xcf">
+      <Filter>Source Files\textures</Filter>
+    </None>
+    <None Include="textures\metalwall1bw.xcf">
+      <Filter>Source Files\textures</Filter>
+    </None>
+    <None Include="textures\WallBrick.xcf">
+      <Filter>Source Files\textures</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="skybox\PositiveY.png">
+      <Filter>Source Files\skybox</Filter>
+    </Image>
+    <Image Include="skybox\PositiveZ.png">
+      <Filter>Source Files\skybox</Filter>
+    </Image>
+    <Image Include="skybox\NegativeX.png">
+      <Filter>Source Files\skybox</Filter>
+    </Image>
+    <Image Include="skybox\NegativeY.png">
+      <Filter>Source Files\skybox</Filter>
+    </Image>
+    <Image Include="skybox\NegativeZ.png">
+      <Filter>Source Files\skybox</Filter>
+    </Image>
+    <Image Include="skybox\PositiveX.png">
+      <Filter>Source Files\skybox</Filter>
+    </Image>
+    <Image Include="textures\crate.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\cratebw.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\crosshair.png">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\doorbw.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\doorcolor.jpeg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\doorcolor1.jpeg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\floorbw.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\floornoborder.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\lava2.png">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\metalfloor.jpeg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\metalwall1.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\metalwall1bw.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\muzzleflash.png">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\muzzleflashbw.png">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\muzzleflashtrimmed2.png">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\noiseRGB.png">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\noiseRGB-2.png">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\plate.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\platewall1.jpeg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\rivetWallbw.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\smoke.png">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\wall.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\WallBrick.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\cat.png">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\caustic.png">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\ceiling.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\ceilingbw.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\concrete.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\concretebw.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
+    <Image Include="textures\container.jpg">
+      <Filter>Source Files\textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

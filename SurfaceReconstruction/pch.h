@@ -1,6 +1,8 @@
 #ifndef PRECOMPILED_HEADER
 #define PRECOMPILED_HEADER
 
+#include "config.h"
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -21,8 +23,14 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <cstddef>
+
+#if defined(LINUX)
 #include <unistd.h>
 #include <dlfcn.h>
+#elif defined(WINDOWS)
+#define NOMINMAX
+#include <windows.h>
+#endif
 
 #include <iostream>
 #include <fstream>

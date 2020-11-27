@@ -20,7 +20,174 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\glad\src\glad.c" />
+    <ClCompile Include="geometry\cluster.cpp" />
+    <ClCompile Include="geometry\geometry.cpp" />
+    <ClCompile Include="geometry\mesh.cpp" />
+    <ClCompile Include="geometry\model.cpp" />
+    <ClCompile Include="geometry\stairs.cpp" />
+    <ClCompile Include="geometry\target.cpp" />
+    <ClCompile Include="geometry\weapon.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="material_system\asset.cpp" />
+    <ClCompile Include="material_system\material.cpp" />
+    <ClCompile Include="material_system\texture.cpp" />
+    <ClCompile Include="particle_system\particle.cpp" />
+    <ClCompile Include="particle_system\particle_system.cpp" />
+    <ClCompile Include="player\player.cpp" />
+    <ClCompile Include="rendering\batch\batchdepthmap.cpp" />
+    <ClCompile Include="rendering\batch\batchinstanced.cpp" />
+    <ClCompile Include="rendering\batch\batchoutline.cpp" />
+    <ClCompile Include="rendering\batch\batchparticle.cpp" />
+    <ClCompile Include="rendering\batch\batchrenderer.cpp" />
+    <ClCompile Include="rendering\camera.cpp" />
+    <ClCompile Include="rendering\frustum.cpp" />
+    <ClCompile Include="rendering\group.cpp" />
+    <ClCompile Include="rendering\layers\abstractlayer.cpp" />
+    <ClCompile Include="rendering\layers\depthmaplayer.cpp" />
+    <ClCompile Include="rendering\layers\instancedlayer.cpp" />
+    <ClCompile Include="rendering\layers\outlinelayer.cpp" />
+    <ClCompile Include="rendering\layers\particlelayer.cpp" />
+    <ClCompile Include="rendering\layers\scenelayer.cpp" />
+    <ClCompile Include="rendering\light.cpp" />
+    <ClCompile Include="rendering\renderer.cpp" />
+    <ClCompile Include="rendering\shader.cpp" />
+    <ClCompile Include="scene\room.cpp" />
+    <ClCompile Include="scene\scene.cpp" />
+    <ClCompile Include="scene\skybox.cpp" />
+    <ClCompile Include="utils\collision.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="config.h" />
+    <ClInclude Include="geometry\bounding_box.h" />
+    <ClInclude Include="geometry\cluster.h" />
+    <ClInclude Include="geometry\geometry.h" />
+    <ClInclude Include="geometry\mesh.h" />
+    <ClInclude Include="geometry\model.h" />
+    <ClInclude Include="geometry\stairs.h" />
+    <ClInclude Include="geometry\target.h" />
+    <ClInclude Include="geometry\weapon.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="material_system\asset.h" />
+    <ClInclude Include="material_system\material.h" />
+    <ClInclude Include="material_system\texture.h" />
+    <ClInclude Include="particle_system\particle.h" />
+    <ClInclude Include="particle_system\particle_system.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="player\player.h" />
+    <ClInclude Include="rendering\batch\batchabstract.h" />
+    <ClInclude Include="rendering\batch\batchdepthmap.h" />
+    <ClInclude Include="rendering\batch\batchinstanced.h" />
+    <ClInclude Include="rendering\batch\batchoutline.h" />
+    <ClInclude Include="rendering\batch\batchparticle.h" />
+    <ClInclude Include="rendering\batch\batchrenderer.h" />
+    <ClInclude Include="rendering\batch\VertexData.h" />
+    <ClInclude Include="rendering\camera.h" />
+    <ClInclude Include="rendering\frustum.h" />
+    <ClInclude Include="rendering\group.h" />
+    <ClInclude Include="rendering\layers\abstractlayer.h" />
+    <ClInclude Include="rendering\layers\depthmaplayer.h" />
+    <ClInclude Include="rendering\layers\instancedlayer.h" />
+    <ClInclude Include="rendering\layers\outlinelayer.h" />
+    <ClInclude Include="rendering\layers\particlelayer.h" />
+    <ClInclude Include="rendering\layers\scenelayer.h" />
+    <ClInclude Include="rendering\layers\weaponlayer.h" />
+    <ClInclude Include="rendering\light.h" />
+    <ClInclude Include="rendering\renderer.h" />
+    <ClInclude Include="rendering\shader.h" />
+    <ClInclude Include="scene\room.h" />
+    <ClInclude Include="scene\scene.h" />
+    <ClInclude Include="scene\scenegraph.h" />
+    <ClInclude Include="scene\skybox.h" />
+    <ClInclude Include="utils\collision.h" />
+    <ClInclude Include="utils\outline.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\batch\batchShader.fs" />
+    <None Include="shaders\batch\batchShader.vs" />
+    <None Include="shaders\batch\depthShader.fs" />
+    <None Include="shaders\batch\depthShader.gs" />
+    <None Include="shaders\batch\depthShader.vs" />
+    <None Include="shaders\batch\outlineShader.fs" />
+    <None Include="shaders\batch\outlineShader.vs" />
+    <None Include="shaders\particles\particleCubeShader.gs" />
+    <None Include="shaders\particles\particleLineShader.gs" />
+    <None Include="shaders\particles\particlePointShader.gs" />
+    <None Include="shaders\particles\particleShader.fs" />
+    <None Include="shaders\particles\particleShader.vs" />
+    <None Include="shaders\postprocessing\blurCubemapFace.fs" />
+    <None Include="shaders\postprocessing\blurCubemapFace.gs" />
+    <None Include="shaders\postprocessing\blurCubemapFace.vs" />
+    <None Include="shaders\simple\depthShader.fs" />
+    <None Include="shaders\simple\depthShader.gs" />
+    <None Include="shaders\simple\depthShader.vs" />
+    <None Include="shaders\simple\explodeCubeShader.fs" />
+    <None Include="shaders\simple\explodeCubeShader.gs" />
+    <None Include="shaders\simple\explodeShader.gs" />
+    <None Include="shaders\simple\explodeShader.vs" />
+    <None Include="shaders\simple\instancedShader.fs" />
+    <None Include="shaders\simple\instancedShader.vs" />
+    <None Include="shaders\simple\lightningShader.fs" />
+    <None Include="shaders\simple\lightningShader.vs" />
+    <None Include="shaders\simple\lightShader.fs" />
+    <None Include="shaders\simple\lightShader.vs" />
+    <None Include="shaders\simple\modelShader.fs" />
+    <None Include="shaders\simple\modelShader.vs" />
+    <None Include="shaders\simple\outlineShader.fs" />
+    <None Include="shaders\simple\outlineShader.vs" />
+    <None Include="shaders\simple\shader.fs" />
+    <None Include="shaders\simple\shader.vs" />
+    <None Include="shaders\simple\skyboxShader.fs" />
+    <None Include="shaders\simple\skyboxShader.vs" />
+    <None Include="shaders\utils\bilateralFilterCubemap.fs" />
+    <None Include="shaders\utils\blurCubemap.gs" />
+    <None Include="shaders\utils\blurCubemap.vs" />
+    <None Include="shaders\utils\copyCubemap.fs" />
+    <None Include="shaders\utils\copyCubemap.gs" />
+    <None Include="shaders\utils\copyCubemap.vs" />
+    <None Include="shaders\utils\gausBlurCubemap.fs" />
+    <None Include="shaders\utils\gausBlurVsmCubemap.fs" />
+    <None Include="textures\floornoborder.xcf" />
+    <None Include="textures\floortex.xcf" />
+    <None Include="textures\metalwall1bw.xcf" />
+    <None Include="textures\WallBrick.xcf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="skybox\NegativeX.png" />
+    <Image Include="skybox\NegativeY.png" />
+    <Image Include="skybox\NegativeZ.png" />
+    <Image Include="skybox\PositiveX.png" />
+    <Image Include="skybox\PositiveY.png" />
+    <Image Include="skybox\PositiveZ.png" />
+    <Image Include="textures\cat.png" />
+    <Image Include="textures\caustic.png" />
+    <Image Include="textures\ceiling.jpg" />
+    <Image Include="textures\ceilingbw.jpg" />
+    <Image Include="textures\concrete.jpg" />
+    <Image Include="textures\concretebw.jpg" />
+    <Image Include="textures\container.jpg" />
+    <Image Include="textures\crate.jpg" />
+    <Image Include="textures\cratebw.jpg" />
+    <Image Include="textures\crosshair.png" />
+    <Image Include="textures\doorbw.jpg" />
+    <Image Include="textures\doorcolor.jpeg" />
+    <Image Include="textures\doorcolor1.jpeg" />
+    <Image Include="textures\floorbw.jpg" />
+    <Image Include="textures\floornoborder.jpg" />
+    <Image Include="textures\lava2.png" />
+    <Image Include="textures\metalfloor.jpeg" />
+    <Image Include="textures\metalwall1.jpg" />
+    <Image Include="textures\metalwall1bw.jpg" />
+    <Image Include="textures\muzzleflash.png" />
+    <Image Include="textures\muzzleflashbw.png" />
+    <Image Include="textures\muzzleflashtrimmed2.png" />
+    <Image Include="textures\noiseRGB-2.png" />
+    <Image Include="textures\noiseRGB.png" />
+    <Image Include="textures\plate.jpg" />
+    <Image Include="textures\platewall1.jpeg" />
+    <Image Include="textures\rivetWallbw.jpg" />
+    <Image Include="textures\smoke.png" />
+    <Image Include="textures\wall.jpg" />
+    <Image Include="textures\WallBrick.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -126,7 +293,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
