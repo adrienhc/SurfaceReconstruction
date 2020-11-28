@@ -26,6 +26,7 @@
     <ClCompile Include="geometry\model.cpp" />
     <ClCompile Include="geometry\stairs.cpp" />
     <ClCompile Include="geometry\target.cpp" />
+    <ClCompile Include="geometry\terrain.cpp" />
     <ClCompile Include="geometry\weapon.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="material_system\asset.cpp" />
@@ -65,6 +66,7 @@
     <ClInclude Include="geometry\model.h" />
     <ClInclude Include="geometry\stairs.h" />
     <ClInclude Include="geometry\target.h" />
+    <ClInclude Include="geometry\terrain.h" />
     <ClInclude Include="geometry\weapon.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="material_system\asset.h" />
@@ -146,10 +148,6 @@
     <None Include="shaders\utils\copyCubemap.vs" />
     <None Include="shaders\utils\gausBlurCubemap.fs" />
     <None Include="shaders\utils\gausBlurVsmCubemap.fs" />
-    <None Include="textures\floornoborder.xcf" />
-    <None Include="textures\floortex.xcf" />
-    <None Include="textures\metalwall1bw.xcf" />
-    <None Include="textures\WallBrick.xcf" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="skybox\NegativeX.png" />
@@ -158,36 +156,6 @@
     <Image Include="skybox\PositiveX.png" />
     <Image Include="skybox\PositiveY.png" />
     <Image Include="skybox\PositiveZ.png" />
-    <Image Include="textures\cat.png" />
-    <Image Include="textures\caustic.png" />
-    <Image Include="textures\ceiling.jpg" />
-    <Image Include="textures\ceilingbw.jpg" />
-    <Image Include="textures\concrete.jpg" />
-    <Image Include="textures\concretebw.jpg" />
-    <Image Include="textures\container.jpg" />
-    <Image Include="textures\crate.jpg" />
-    <Image Include="textures\cratebw.jpg" />
-    <Image Include="textures\crosshair.png" />
-    <Image Include="textures\doorbw.jpg" />
-    <Image Include="textures\doorcolor.jpeg" />
-    <Image Include="textures\doorcolor1.jpeg" />
-    <Image Include="textures\floorbw.jpg" />
-    <Image Include="textures\floornoborder.jpg" />
-    <Image Include="textures\lava2.png" />
-    <Image Include="textures\metalfloor.jpeg" />
-    <Image Include="textures\metalwall1.jpg" />
-    <Image Include="textures\metalwall1bw.jpg" />
-    <Image Include="textures\muzzleflash.png" />
-    <Image Include="textures\muzzleflashbw.png" />
-    <Image Include="textures\muzzleflashtrimmed2.png" />
-    <Image Include="textures\noiseRGB-2.png" />
-    <Image Include="textures\noiseRGB.png" />
-    <Image Include="textures\plate.jpg" />
-    <Image Include="textures\platewall1.jpeg" />
-    <Image Include="textures\rivetWallbw.jpg" />
-    <Image Include="textures\smoke.png" />
-    <Image Include="textures\wall.jpg" />
-    <Image Include="textures\WallBrick.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

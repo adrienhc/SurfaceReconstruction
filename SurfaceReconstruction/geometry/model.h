@@ -18,6 +18,7 @@ class Model
 		std::vector<mTexture> textures_loaded;
 		bool gammaCorrection;
 
+		Model() {};
 		Model(char* path, bool gamma = false);
 		~Model();
 		void Draw(Shader shader);

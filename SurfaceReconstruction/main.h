@@ -40,6 +40,7 @@
 #include "geometry/weapon.h"
 #include "geometry/target.h"
 #include "geometry/stairs.h"
+#include "geometry/terrain.h"
 
 #include "scene/scenegraph.h"
 #include "scene/room.h"
@@ -74,7 +75,7 @@ float lastY;
 bool firstMouse = true;
 
 //polygon mode
-bool polygon = false;
+bool polygon = true;
 
 //texture blending
 float blend = 0.6f;

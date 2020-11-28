@@ -18,7 +18,6 @@ Texture::Texture(std::string path)
 
     if (data)
     {
-        GLenum format;
         if (nrChannels == 1)
             format = GL_RED;
         else if (nrChannels == 2)
@@ -61,4 +60,24 @@ void Texture::Unbind(int offset)
 unsigned int Texture::GetID()
 {
     return texture;
+}
+
+GLubyte* Texture::GetData()
+{
+    if (data)
+    {
+        glBindTexture(GL_TEXTURE_2D, texture);
+        GLubyte* texture_data = new GLubyte[width * height * nrChannels];
+        glGetTexImage(GL_TEXTURE_2D, 0, format, GL_UNSIGNED_BYTE, texture_data);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        return texture_data;
+    }
+    else
+        return nullptr;   
+}
+
+glm::vec3 Texture::GetDimensions()
+{
+    return glm::vec3(width, height, nrChannels);
 }

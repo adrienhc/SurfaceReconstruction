@@ -4,11 +4,16 @@ Player::Player(Camera* camera, Weapon* weapon)
 {
 	this->camera = camera;
 	this->weapon = weapon;
-	this->weapon->GetModel()->cullingOFF();
+
+	if(weapon)
+		this->weapon->GetModel()->cullingOFF();
 }
 
 void Player::Update(float deltaTime)
 {
+	if (!weapon)
+		return;
+
 	weapon->Update(deltaTime);
 
 	glm::vec4 weapon_offsets = weapon->GetADSOffset(); 
@@ -58,46 +63,50 @@ void Player::addLayer(AbstractLayer* layer, bool flash)
 {
 
 	nNode* Player = new nNode();
-	glm::mat4 modeltr = weapon->GetModelTransform();
 
-	if(!flash)
+	if (weapon)
 	{
-		nModel* model = new nModel(weapon->GetModel(), eModelshdr);
-		model->SetTransform(modeltr);
-		Player->AddChildren(model);
-	}
+		glm::mat4 modeltr = weapon->GetModelTransform();
 
-	if(flash && weapon->IsFiring() && !weapon->IsFullyADS())
-	{
+		if (!flash)
+		{
+			nModel* model = new nModel(weapon->GetModel(), eModelshdr);
+			model->SetTransform(modeltr);
+			Player->AddChildren(model);
+		}
 
-		float time = weapon->GetFireOffset(); //glfwGetTime();
-		float spinSpeed = 1000.0f;
-		float rotationMuzzle = time * spinSpeed;
-		float scaleMuzzle = 10.0f * weapon->GetScaling().x;
-		float frontOffsetMuzzle = 6.0f;
+		if (flash && weapon->IsFiring() && !weapon->IsFullyADS())
+		{
 
-		//Muzzle Flash 
-		glm::mat4 muzzleStart_V = glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), camera->WorldUp);
-		muzzleStart_V = glm::rotate(muzzleStart_V, rotationMuzzle, glm::vec3(1.0f, 0.0f, 0.0f));
-		glm::mat4 muzzleStart;
+			float time = weapon->GetFireOffset(); //glfwGetTime();
+			float spinSpeed = 1000.0f;
+			float rotationMuzzle = time * spinSpeed;
+			float scaleMuzzle = 10.0f * weapon->GetScaling().x;
+			float frontOffsetMuzzle = 6.0f;
 
-		glm::vec3 undoRotation_V = glm::rotate( glm::vec3(frontOffsetMuzzle, 0.8f, 0.0f), - 1.0f * rotationMuzzle, glm::vec3(1.0f, 0.0f, 0.0f) );
-		muzzleStart = glm::translate(muzzleStart_V, undoRotation_V);
-		muzzleStart = modeltr * muzzleStart;
-		muzzleStart = glm::scale(muzzleStart, scaleMuzzle * 1.0f/(3.0f*weapon->GetScaling()));
-		nAsset* flash1 = new nAsset(weapon->muzzleFlash, eObject);
-		flash1->SetTransform(muzzleStart);
-		Player->AddChildren(flash1);
+			//Muzzle Flash 
+			glm::mat4 muzzleStart_V = glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), camera->WorldUp);
+			muzzleStart_V = glm::rotate(muzzleStart_V, rotationMuzzle, glm::vec3(1.0f, 0.0f, 0.0f));
+			glm::mat4 muzzleStart;
+
+			glm::vec3 undoRotation_V = glm::rotate(glm::vec3(frontOffsetMuzzle, 0.8f, 0.0f), -1.0f * rotationMuzzle, glm::vec3(1.0f, 0.0f, 0.0f));
+			muzzleStart = glm::translate(muzzleStart_V, undoRotation_V);
+			muzzleStart = modeltr * muzzleStart;
+			muzzleStart = glm::scale(muzzleStart, scaleMuzzle * 1.0f / (3.0f * weapon->GetScaling()));
+			nAsset* flash1 = new nAsset(weapon->muzzleFlash, eObject);
+			flash1->SetTransform(muzzleStart);
+			Player->AddChildren(flash1);
 
 
-		glm::mat4 muzzleStart_H = glm::rotate(muzzleStart_V, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		glm::vec3 undoRotation_H = glm::rotate( glm::vec3(frontOffsetMuzzle, 0.0f, 0.8f), - 1.0f * rotationMuzzle, glm::vec3(1.0f, 0.0f, 0.0f) );
-		muzzleStart = glm::translate(muzzleStart_H, undoRotation_H);
-		muzzleStart = modeltr * muzzleStart;
-		muzzleStart = glm::scale(muzzleStart, scaleMuzzle * 1.0f/(3.0f*weapon->GetScaling()));
-		nAsset* flash2 = new nAsset(weapon->muzzleFlash, eObject);
-		flash2->SetTransform(muzzleStart);
-		Player->AddChildren(flash2);
+			glm::mat4 muzzleStart_H = glm::rotate(muzzleStart_V, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+			glm::vec3 undoRotation_H = glm::rotate(glm::vec3(frontOffsetMuzzle, 0.0f, 0.8f), -1.0f * rotationMuzzle, glm::vec3(1.0f, 0.0f, 0.0f));
+			muzzleStart = glm::translate(muzzleStart_H, undoRotation_H);
+			muzzleStart = modeltr * muzzleStart;
+			muzzleStart = glm::scale(muzzleStart, scaleMuzzle * 1.0f / (3.0f * weapon->GetScaling()));
+			nAsset* flash2 = new nAsset(weapon->muzzleFlash, eObject);
+			flash2->SetTransform(muzzleStart);
+			Player->AddChildren(flash2);
+		}
 	}
 
 	Group* g_player = new Group(Player);
@@ -106,6 +115,9 @@ void Player::addLayer(AbstractLayer* layer, bool flash)
 
 void Player::addParticle(ParticleSystem* particle_system)
 {
+	if (!weapon)
+		return;
+
 	float frontOffsetMuzzle = 4.5f;
 	float heightOffsetMuzzle = 0.6f;
 	glm::vec4 muzzleFront = glm::vec4(0.0f, heightOffsetMuzzle, frontOffsetMuzzle, 1.0f); //Weapon Loaded Facing Z axis

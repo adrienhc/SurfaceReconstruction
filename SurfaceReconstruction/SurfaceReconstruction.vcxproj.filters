@@ -61,9 +61,6 @@
     <Filter Include="Source Files\skybox">
       <UniqueIdentifier>{e0a5692e-c20f-4308-ac53-5f620455c6a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\textures">
-      <UniqueIdentifier>{d46cc529-d041-4774-a94e-024c84b0adba}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\utils">
       <UniqueIdentifier>{d3d047dc-1c3a-4b02-b364-70f1ae05ecd4}</UniqueIdentifier>
     </Filter>
@@ -176,6 +173,9 @@
     </ClCompile>
     <ClCompile Include="utils\collision.cpp">
       <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="geometry\terrain.cpp">
+      <Filter>Source Files\geometry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="utils\outline.h">
       <Filter>Source Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry\terrain.h">
+      <Filter>Source Files\geometry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -442,18 +445,6 @@
     <None Include="shaders\utils\gausBlurVsmCubemap.fs">
       <Filter>Source Files\shaders\utils</Filter>
     </None>
-    <None Include="textures\floornoborder.xcf">
-      <Filter>Source Files\textures</Filter>
-    </None>
-    <None Include="textures\floortex.xcf">
-      <Filter>Source Files\textures</Filter>
-    </None>
-    <None Include="textures\metalwall1bw.xcf">
-      <Filter>Source Files\textures</Filter>
-    </None>
-    <None Include="textures\WallBrick.xcf">
-      <Filter>Source Files\textures</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="skybox\PositiveY.png">
@@ -473,96 +464,6 @@
     </Image>
     <Image Include="skybox\PositiveX.png">
       <Filter>Source Files\skybox</Filter>
-    </Image>
-    <Image Include="textures\crate.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\cratebw.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\crosshair.png">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\doorbw.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\doorcolor.jpeg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\doorcolor1.jpeg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\floorbw.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\floornoborder.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\lava2.png">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\metalfloor.jpeg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\metalwall1.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\metalwall1bw.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\muzzleflash.png">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\muzzleflashbw.png">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\muzzleflashtrimmed2.png">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\noiseRGB.png">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\noiseRGB-2.png">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\plate.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\platewall1.jpeg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\rivetWallbw.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\smoke.png">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\wall.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\WallBrick.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\cat.png">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\caustic.png">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\ceiling.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\ceilingbw.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\concrete.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\concretebw.jpg">
-      <Filter>Source Files\textures</Filter>
-    </Image>
-    <Image Include="textures\container.jpg">
-      <Filter>Source Files\textures</Filter>
     </Image>
   </ItemGroup>
 </Project>
