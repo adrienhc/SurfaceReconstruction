@@ -4,8 +4,8 @@
 Terrain::Terrain(glm::vec3 position, char orientation, std::string heightMapPath) //'N' 'S' 'E' 'W'
 {
 	
-	float heightScale = 4.0f;
-	float lengthScale = 20.0f;
+	float heightScale = 10.0f;
+	float lengthScale = 30.0f;
 
 	//Load HeightMap Texture
 	heightMapTexture = new Texture(heightMapPath);
@@ -40,12 +40,12 @@ Terrain::Terrain(glm::vec3 position, char orientation, std::string heightMapPath
 		{
 			mVertex v;
 			v.Position = glm::vec3(lengthScale * (float)x/width, heightScale * heightMap[x + (width * y)] / 255.0f, lengthScale * (float)y/height);
-			
+			//std::cout << heightMap[x + (width * y)] << " ";
 			glm::vec3 normal;
 			if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
 				normal = glm::vec3(0.0f, 1.0f, 0.0f);
 			else
-				normal = GetNormal(heightMap[x + (width * (y - 1))], heightMap[(x + 1) + (width * y)], heightMap[x + (width * (y + 1))], heightMap[(x - 1) + (width * y)], heightMap[x + (width * y)], heightScale);
+				normal = GetNormal(heightMap[x + (width * (y - 1))], heightMap[(x + 1) + (width * y)], heightMap[x + (width * (y + 1))], heightMap[(x - 1) + (width * y)], heightMap[x + (width * y)], heightScale/255.0f);
 
 			v.Normal = normal;
 			v.TexCoords = glm::vec2((float)x / (float)width, (float)y / (float)height);
@@ -138,10 +138,9 @@ void Terrain::addLayer(AbstractLayer* layer)
 
 glm::vec3 Terrain::GetNormal(float a, float b, float c, float d, float n, float heightScale)
 {
-	//To make it easier we offset the points such that n is "0" height
-	glm::vec3 va = glm::vec3(0.0f, (a - n) * heightScale, 1.0f);
+	glm::vec3 va = glm::vec3(0.0f, (a - n) * heightScale, -1.0f);
 	glm::vec3 vb = glm::vec3(1.0f, (b - n) * heightScale, 0.0f);
-	glm::vec3 vc = glm::vec3(0.0f, (c - n) * heightScale, -1.0f);
+	glm::vec3 vc = glm::vec3(0.0f, (c - n) * heightScale, 1.0f);
 	glm::vec3 vd = glm::vec3(-1.0f, (d - n) * heightScale, 0.0f);
 	//cross products of each vector yields the normal of each tri - return the average normal of all 4 tris
 	glm::vec3 avg = (glm::cross(va, vb) + glm::cross(vb, vc) + glm::cross(vc, vd) + glm::cross(vd, va)) / -4.0f;

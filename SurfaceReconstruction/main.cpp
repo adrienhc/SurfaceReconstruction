@@ -175,12 +175,12 @@ int main()
     //TERRAIN
     nNode* Root = new nNode();
     PointLight* pointLight = new PointLight(1, glm::vec3(0.7f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.007f, 0.0002f);
-    pointLight->setRadius(40.0f, 0);
-    nNode* Ref = Root->AddChildrenRecursive(new nTranslate(glm::vec3(10.0f, 10.0f, 10.0f)));
+    pointLight->setRadius(60.0f, 0);
+    nNode* Ref = Root->AddChildrenRecursive(new nTranslate(glm::vec3(0.0f, 10.0f, 0.0f)));
     Ref->AddChildren(new nPointLight(pointLight, 0));
     Group* g_light = new Group(Root);
 
-    Terrain terrain = Terrain(glm::vec3(0.0f, 1.0f, 0.0f), 'N', "./textures/heightmap.jpg");
+    Terrain terrain = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', "./textures/heightmap.jpg");
 
    //RENDERER
     Renderer renderer = Renderer();
@@ -329,7 +329,7 @@ void framebuffer_size_callback( GLFWwindow* window, int width, int height)
 void process_input(GLFWwindow* window)
 {
     
-    if(glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS)
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true); 
 
     if(!FixCamera)

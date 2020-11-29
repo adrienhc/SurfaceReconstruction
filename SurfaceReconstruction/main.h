@@ -75,7 +75,7 @@ float lastY;
 bool firstMouse = true;
 
 //polygon mode
-bool polygon = true;
+bool polygon = false;
 
 //texture blending
 float blend = 0.6f;

@@ -1,8 +1,8 @@
 #include "light.h"
 
 const unsigned int PointLight::MAX_LIGHTS = 3;
-const unsigned int PointLight::SHADOW_WIDTH = 256;
-const unsigned int PointLight::SHADOW_HEIGHT = 256;
+const unsigned int PointLight::SHADOW_WIDTH = 512;
+const unsigned int PointLight::SHADOW_HEIGHT = 512;
 unsigned int PointLight::tempBlurCubemap = 0;
 unsigned int PointLight::tempDepthCubemap = 0;
 unsigned int PointLight::tempBlurFBO = 0; 
@@ -27,7 +27,7 @@ PointLight::PointLight(int num_lights, glm::vec3 amb, glm::vec3 diff, glm::vec3 
 	//create shadow pass view matrix
 	aspect = (float) SHADOW_WIDTH/ (float) SHADOW_HEIGHT;
 	nearPlane = 1.0f;
-	farPlane = 20.0f;
+	farPlane = 40.0f;
 	shadowProj = glm::perspective(glm::radians(90.0f), aspect, nearPlane, farPlane); 
 
 	//Cubemap Face Projection Matrices
