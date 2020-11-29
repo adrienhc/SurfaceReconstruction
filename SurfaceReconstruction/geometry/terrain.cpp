@@ -77,6 +77,7 @@ Terrain::Terrain(glm::vec3 position, char orientation, std::string heightMapPath
 	terrainTexture.type = "texture_diffuse";
 	terrainTexture.path = heightMapPath;
 
+	terrainTextures.push_back(terrainTexture);
 
 	//Terrain Model
 	model = new Model();
