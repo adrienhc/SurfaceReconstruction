@@ -180,7 +180,7 @@ int main()
     Ref->AddChildren(new nPointLight(pointLight, 0));
     Group* g_light = new Group(Root);
 
-    Terrain terrain = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', "./textures/heightmap.jpg");
+    Terrain terrain = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', "./textures/heightmap.png");
 
    //RENDERER
     Renderer renderer = Renderer();
