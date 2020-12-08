@@ -1,12 +1,11 @@
 #include "terrain.h"
 
 
-Terrain::Terrain(glm::vec3 position, char orientation, float heightScale, float lengthScale, int downsampleFactor, std::string heightMapPath, bool heightMapAsTexture) //'N' 'S' 'E' 'W'
-	:m_HeightScale(heightScale), m_LengthScale(lengthScale), m_DownsampleFactor(downsampleFactor), m_HeightMapAsTexture(heightMapAsTexture)
+Terrain::Terrain(glm::vec3 position, char orientation, float heightScale, float lengthScale, int downsampleFactor, std::string heightMapPath, bool heightMapAsTexture, float thresholdPercentage) //'N' 'S' 'E' 'W'
+	:m_HeightScale(heightScale), m_LengthScale(lengthScale), m_DownsampleFactor(downsampleFactor), m_HeightMapAsTexture(heightMapAsTexture), m_ThresholdPercentage(thresholdPercentage)
 {
 	
-	MakeHeightMap(heightMapTexture, heightMap, heightMapPath, true);
-	std::cout << heightMap[0] << std::endl;
+	MakeHeightMap(heightMapTexture, heightMap, heightMapPath, true, m_ThresholdPercentage);
 	MakeModel(model, heightMap);
 	MakeNodeModel(nodeModel, model, position, orientation);
 }
@@ -27,39 +26,6 @@ nModel* Terrain::GetNodeModel()
 Model* Terrain::GetModel()
 {
 	return model;
-}
-
-void Terrain::AddNoise(float noiseScale, std::string noiseMapPath)
-{
-	//Noisemap and Height map are both m_Width * m_Height
-	MakeHeightMap(noiseMapTexture, noiseMap, noiseMapPath, false);
-
-	//
-	std::vector<mVertex> terrainVertices = model->meshes[0].vertices;
-	std::vector<unsigned int> terrainIndices = model->meshes[0].indices;
-	std::vector<mTexture> terrainTextures = model->meshes[0].textures;
-
-	for (int y = 0; y < m_Length; y++)
-	{
-		for (int x = 0; x < m_Width; x++)
-		{
-			terrainVertices[x + (m_Width * y)].Position = glm::vec3(m_LengthScale * ((float)x / m_Width), (m_HeightScale * ((heightMap[x + (m_Width * y)]) / 255.0f))  + (noiseScale * ((noiseMap[x + (m_Width * y)]) / 255.0f)), m_LengthScale * ((float)y / m_Length));
-			
-			if (x == 0 || x == m_Width - 1 || y == 0 || y == m_Length - 1)
-				terrainVertices[x + (m_Width * y)].Normal = glm::vec3(0.0f, 1.0f, 0.0f);
-			else
-				terrainVertices[x + (m_Width * y)].Normal = 
-					GetNormal((m_HeightScale) * heightMap[x + (m_Width * (y - 1))] + (noiseScale) * noiseMap[x + (m_Width * (y - 1))],
-							  (m_HeightScale) * heightMap[(x + 1) + (m_Width * y)] + (noiseScale) * noiseMap[(x + 1) + (m_Width * y)],
-						      (m_HeightScale) * heightMap[x + (m_Width * (y + 1))] + (noiseScale) * noiseMap[x + (m_Width * (y + 1))],
-						      (m_HeightScale) * heightMap[(x - 1) + (m_Width * y)] + (noiseScale) * noiseMap[(x - 1) + (m_Width * y)],
-						      (m_HeightScale) * heightMap[x + (m_Width * y)]       + (noiseScale) * noiseMap[x + (m_Width * y)],
-							  1.0f / 255.0f);
-		}
-	}
-
-	model->meshes.clear();
-	model->meshes.push_back(Mesh(terrainVertices, terrainIndices, terrainTextures));
 }
 
 void Terrain::addLayer(AbstractLayer* layer)
@@ -83,7 +49,39 @@ glm::vec3 Terrain::GetNormal(float a, float b, float c, float d, float n, float 
 	return glm::normalize(avg);
 }
 
-void Terrain::MakeHeightMap(Texture* &heightMapTexture, int* &heightMap, const std::string heightMapPath, const bool isHeightMap)
+void Terrain::AddNoise(float noiseScale, std::string noiseMapPath, float thresholdPercentage)
+{
+	//Noisemap and Height map are both m_Width * m_Height
+	MakeHeightMap(noiseMapTexture, noiseMap, noiseMapPath, false, thresholdPercentage);
+
+	std::vector<mVertex> terrainVertices = model->meshes[0].vertices;
+	std::vector<unsigned int> terrainIndices = model->meshes[0].indices;
+	std::vector<mTexture> terrainTextures = model->meshes[0].textures;
+
+	for (int y = 0; y < m_Length; y++)
+	{
+		for (int x = 0; x < m_Width; x++)
+		{
+			terrainVertices[x + (m_Width * y)].Position = glm::vec3(m_LengthScale * ((float)x / m_Width), (m_HeightScale * ((heightMap[x + (m_Width * y)]) / 255.0f)) + (noiseScale * ((noiseMap[x + (m_Width * y)]) / 255.0f)), m_LengthScale * ((float)y / m_Length));
+
+			if (x == 0 || x == m_Width - 1 || y == 0 || y == m_Length - 1)
+				terrainVertices[x + (m_Width * y)].Normal = glm::vec3(0.0f, 1.0f, 0.0f);
+			else
+				terrainVertices[x + (m_Width * y)].Normal =
+				GetNormal((m_HeightScale)*heightMap[x + (m_Width * (y - 1))] + (noiseScale)*noiseMap[x + (m_Width * (y - 1))],
+					(m_HeightScale)*heightMap[(x + 1) + (m_Width * y)] + (noiseScale)*noiseMap[(x + 1) + (m_Width * y)],
+					(m_HeightScale)*heightMap[x + (m_Width * (y + 1))] + (noiseScale)*noiseMap[x + (m_Width * (y + 1))],
+					(m_HeightScale)*heightMap[(x - 1) + (m_Width * y)] + (noiseScale)*noiseMap[(x - 1) + (m_Width * y)],
+					(m_HeightScale)*heightMap[x + (m_Width * y)] + (noiseScale)*noiseMap[x + (m_Width * y)],
+					1.0f / 255.0f);
+		}
+	}
+
+	model->meshes.clear();
+	model->meshes.push_back(Mesh(terrainVertices, terrainIndices, terrainTextures));
+}
+
+void Terrain::MakeHeightMap(Texture* &heightMapTexture, int* &heightMap, const std::string heightMapPath, const bool isHeightMap, const float thesholdPercentage)
 {
 	if (!heightMapTexture)
 		delete heightMapTexture;
@@ -112,11 +110,13 @@ void Terrain::MakeHeightMap(Texture* &heightMapTexture, int* &heightMap, const s
 
 	heightMap = new int[m_Width * m_Length];
 
+	float thresholdValue = thesholdPercentage * 255.0f; //to which value do we set the no height floor
+
 	for (int y = 0, i = 0; y < tex_height && i < m_Length; y += downsampleFactor, i++)
 	{
 		for (int x = 0, j = 0; x < tex_width && j < m_Width; x += downsampleFactor, j++)
 		{
-			heightMap[j + (m_Width * i)] = (int)textureData[x * tex_nrChannels + (tex_width * y * tex_nrChannels)];
+			heightMap[j + (m_Width * i)] = (int)(textureData[x * tex_nrChannels + (tex_width * y * tex_nrChannels)] - thresholdValue);
 		}
 	}
 }

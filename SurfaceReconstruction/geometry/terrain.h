@@ -13,17 +13,18 @@ class Terrain
 {
 public:
 	//Add Size and Granularity/Samples -- think of a better name
-	Terrain(glm::vec3 position, char orientation, float heightScale, float lengthScale, int downsampleFactor, std::string heightMapPath, bool heightMapAsTexture = true); //'N' 'S' 'E' 'W'  
+	Terrain(glm::vec3 position, char orientation, float heightScale, float lengthScale, int downsampleFactor, std::string heightMapPath, bool heightMapAsTexture = true, float thresholdPercentage = 0.0f); //'N' 'S' 'E' 'W'  
 	~Terrain();
 	nModel* GetNodeModel();
 	Model* GetModel();
-	void AddNoise(float noiseScale, std::string noiseMapPath); //keep same m_Width/m_Length -> recompute different m_DownscaleFactor so that noiseMap matches heightMap
+	void AddNoise(float noiseScale, std::string noiseMapPath, float thresholdPercentage = 0.0f);
 	void addLayer(AbstractLayer* layer);
 
 private: 
 
 	float m_HeightScale;
 	float m_LengthScale;
+	float m_ThresholdPercentage;
 	int m_DownsampleFactor;
 	int m_Width;
 	int m_Length;
@@ -39,7 +40,7 @@ private:
 	nModel* nodeModel = NULL;
 	glm::mat4 m_Transform;
 
-	void MakeHeightMap(Texture* &heightMapTexture, int* &heightMap, const std::string heightMapPath, const bool isHeightMap = false);
+	void MakeHeightMap(Texture* &heightMapTexture, int* &heightMap, const std::string heightMapPath, const bool isHeightMap = false, const float thresholdPercentage = 0.0f);
 	void MakeModel(Model* &model, const int* heightMap);
 	void MakeNodeModel(nModel* &nodeModel, /*const*/ Model* model, const glm::vec3 position, const char orientation);
 	glm::vec3 GetNormal(float a, float b, float c, float d, float n, float heightScale);

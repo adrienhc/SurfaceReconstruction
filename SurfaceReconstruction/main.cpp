@@ -180,10 +180,9 @@ int main()
     Ref->AddChildren(new nPointLight(pointLight, 0));
     Group* g_light = new Group(Root);
 
-    Terrain terrain = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', 10.0f, 30.0f, 10, "./textures/heightmap_billow.png");
-    //terrain.AddNoise(1.0f, );
-    Terrain terrainPoints = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', 10.0f, 30.0f, 10, "./textures/heightmap_billow.png", false);
-    //terrainPoints.AddNoise(1.0f, );
+    Terrain terrain = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', 10.0f, 30.0f, 10, "./textures/heightmap_billow.png", true, 0.0f);
+    Terrain terrainPoints = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', 10.0f, 30.0f, 10, "./textures/heightmap_billow.png", false, 0.0f);
+    terrainPoints.AddNoise(5.0f, "./textures/noiseTexture.png", 1.0f);
    
    //RENDERER
     Renderer renderer = Renderer();
@@ -297,7 +296,7 @@ int main()
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
         glPointSize(4.0f);
-        scenePoints.SetDepthOffset(-0.001f);
+        scenePoints.SetDepthOffset(-0.0001f);
         scenePoints.RenderKeep();
 
         if(firstPass)
