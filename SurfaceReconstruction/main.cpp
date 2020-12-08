@@ -1,6 +1,6 @@
 #include "main.h"
 
-int main()
+int main(int argc, char** argv)
 {
 
     //GLFW WINDOW SETUP
@@ -180,9 +180,12 @@ int main()
     Ref->AddChildren(new nPointLight(pointLight, 0));
     Group* g_light = new Group(Root);
 
-    Terrain terrain = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', 10.0f, 30.0f, 10, "./textures/heightmap_billow.png", true, 0.0f);
-    Terrain terrainPoints = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', 10.0f, 30.0f, 10, "./textures/heightmap_billow.png", false, 0.0f);
-    terrainPoints.AddNoise(5.0f, "./textures/noiseTexture.png", 1.0f);
+    std::string heightmap_path(argv[1]);
+    std::string noisemap_path(argv[3]);
+
+    Terrain terrain = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', atof(argv[2]), 30.0f, 10, heightmap_path, true, 0.0f);
+    Terrain terrainPoints = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', atof(argv[2]), 30.0f, 10, heightmap_path, false, 0.0f);
+    terrainPoints.AddNoise(atof(argv[4]), noisemap_path, 1.0f);
    
    //RENDERER
     Renderer renderer = Renderer();
