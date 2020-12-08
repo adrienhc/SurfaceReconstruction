@@ -12,6 +12,8 @@ layout (location = 10) in vec4 vCol;
 uniform mat4 viewing;
 uniform mat4 projection;
 
+uniform float depthOffset;
+
 out vec4 fragPos;
 out vec3 fragNorm;
 out vec2 fragTex;
@@ -23,7 +25,10 @@ out vec4 fragColor;
 void main()
 {
 	fragPos = vModelTr * vec4(vPos, 1.0f);
+	
 	gl_Position = projection * viewing * fragPos;
+	gl_Position.z += depthOffset;
+
 	fragNorm = mat3(transpose(inverse(vModelTr))) * vNorm;
 	fragTex = vTex;
 	fragTexDiffID = vTexDiffID;

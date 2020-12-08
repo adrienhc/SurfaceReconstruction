@@ -4,6 +4,9 @@
 
 Texture::Texture(std::string path)
 {
+
+    this->path = path;
+
 	glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
 
@@ -33,7 +36,7 @@ Texture::Texture(std::string path)
     }
     else
     {
-        std::cout << "Material_System: Failed to load texture" << std::endl;
+        std::cout << "Material_System: Failed to load texture " << path << std::endl;
     }
     
     stbi_image_free(data);
@@ -60,6 +63,11 @@ void Texture::Unbind(int offset)
 unsigned int Texture::GetID()
 {
     return texture;
+}
+
+std::string Texture::GetPath()
+{
+    return path;
 }
 
 GLubyte* Texture::GetData()

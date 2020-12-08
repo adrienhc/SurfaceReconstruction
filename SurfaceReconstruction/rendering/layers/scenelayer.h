@@ -17,7 +17,9 @@ class SceneLayer: public AbstractLayer
 		void AddLight(Group* light, bool renderable = false);
 		void ClearLight();
 		void AddBulletHole(glm::vec3 bullet_hole);
+		void SetDepthOffset(float offset);
 		void Clear();
+
 
 	protected:
 		void ShaderSetup();
