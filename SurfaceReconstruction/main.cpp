@@ -180,8 +180,11 @@ int main()
     Ref->AddChildren(new nPointLight(pointLight, 0));
     Group* g_light = new Group(Root);
 
-    Terrain terrain = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', "./textures/heightmap.png");
-
+    Terrain terrain = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', 10.0f, 30.0f, 10, "./textures/heightmap_billow.png");
+    //terrain.AddNoise(1.0f, );
+    Terrain terrainPoints = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', 10.0f, 30.0f, 10, "./textures/heightmap_billow.png", false);
+    //terrainPoints.AddNoise(1.0f, );
+   
    //RENDERER
     Renderer renderer = Renderer();
 
@@ -206,6 +209,9 @@ int main()
     Shader batchShader = Shader("shaders/batch/batchShader.vs", "shaders/batch/batchShader.fs"); 
     SceneLayer scene = SceneLayer(&camera, &batchShader);
 
+    Shader batchShaderPoints = Shader("shaders/batch/batchShader.vs", "shaders/batch/batchShader.fs");
+    SceneLayer scenePoints = SceneLayer(&camera, &batchShaderPoints);
+
     Shader depthShader = Shader("shaders/batch/depthShader.vs", "shaders/batch/depthShader.gs", "shaders/batch/depthShader.fs");
     DepthmapLayer depthmap = DepthmapLayer(&camera, &depthShader); 
 
@@ -217,6 +223,9 @@ int main()
 
     scene.AddLight(g_light, true);
     terrain.addLayer(&scene);
+
+    scenePoints.AddLight(g_light);
+    terrainPoints.addLayer(&scenePoints);
 
     //RENDER LOOP
     bool printNext = false;
@@ -267,11 +276,6 @@ int main()
         
         //RENDERING
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
-        if(polygon)
-            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        else
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
   
         //ROOM LAYER
         //STATIC GEOMETRY
@@ -280,10 +284,21 @@ int main()
             World[i]->addLightsLayerCull(&scene, true);
             World[i]->addLayoutLayerCull(&scene);   
         }
-        scene.RenderKeep();
 
+        if (polygon)
+        {
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        }
+        else
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        scene.RenderKeep();
         //SKYBOX LAYER
         renderer.RenderSkybox(&skybox, &camera);
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+        glPointSize(4.0f);
+        scenePoints.SetDepthOffset(-0.001f);
+        scenePoints.RenderKeep();
 
         if(firstPass)
             firstPass = false;

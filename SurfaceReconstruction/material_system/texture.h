@@ -13,6 +13,7 @@ public:
 		void Bind(int offset = 0);
 		void Unbind(int offset = 0);
 		unsigned int GetID();
+		std::string GetPath();
 		GLubyte* GetData();
 		glm::vec3 GetDimensions();
 private:
@@ -20,6 +21,7 @@ private:
 		unsigned char *data = NULL;
 		int width, height, nrChannels;
 		unsigned int texture;
+		std::string path;
 
 };
 

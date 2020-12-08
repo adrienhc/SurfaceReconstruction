@@ -4,6 +4,7 @@ SceneLayer::SceneLayer(Camera* camera, Shader* shader)
 :AbstractLayer(new BatchRenderer(), camera, shader)
 {
 	shader->use();
+	shader->setFloat("depthOffset", 0.0f);
 	shader->setFloat("radiusImpact", 0.03f);
 
 	//If Create SceneLayer directly!
@@ -19,6 +20,7 @@ SceneLayer::SceneLayer(BatchAbstract* renderer, Camera* camera, Shader* shader)
 :AbstractLayer(renderer, camera, shader)
 {
 	shader->use();
+	shader->setFloat("depthOffset", 0.0f);
 	shader->setFloat("radiusImpact", 0.03f);
 
 	//If Create SceneLayer directly!
@@ -28,6 +30,14 @@ SceneLayer::SceneLayer(BatchAbstract* renderer, Camera* camera, Shader* shader)
     	std::string str_index = std::to_string(i);
 		shader->setVec3("bulletHoles[" + str_index + "]", glm::vec3(1000.0f));
     }
+}
+
+void SceneLayer::SetDepthOffset(float offset)
+{
+	//SETUP DEPTH OFFSET
+	Shader* m_Shader = GetShader();
+	m_Shader->use();
+	m_Shader->setFloat("depthOffset", offset);
 }
 
 SceneLayer::~SceneLayer()
@@ -46,13 +56,10 @@ void SceneLayer::RenderKeep()
 }
 
 void SceneLayer::ShaderSetup()
-{
+{	
 	//SETUP LIGHTS FOR SCENE
 	if(!m_UpdateLights)
 		return;
-
-	Shader* m_Shader = GetShader();
-	m_Shader->use();
 	
 	glm::vec3 playerPosition = GetCamera()->Position;
 	int lightCount = 0;
