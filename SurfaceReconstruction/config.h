@@ -13,11 +13,17 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #endif
 
+#if defined(LINUX)
+#define OPTIMIZE_DEPTHMAP
+#endif
+
 const unsigned int WINDOW_WIDTH = 800; 
 const unsigned int WINDOW_HEIGHT = 600;
 const bool CapFPS = false;
 const bool DisplayFPS = true;
+const bool flyCam = true;
 const bool Gravity = true;
 const int NumRooms = 3;
+
 
 #endif

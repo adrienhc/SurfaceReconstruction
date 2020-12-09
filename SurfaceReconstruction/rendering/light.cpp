@@ -1,6 +1,6 @@
 #include "light.h"
 
-const unsigned int PointLight::MAX_LIGHTS = 3;
+const unsigned int PointLight::MAX_LIGHTS = 5;
 const unsigned int PointLight::SHADOW_WIDTH = 512;
 const unsigned int PointLight::SHADOW_HEIGHT = 512;
 unsigned int PointLight::tempBlurCubemap = 0;

@@ -9,7 +9,7 @@ enum CameraMovements {FORWARD, BACKWARDS, LEFT, RIGHT, UP};
 
 const float YAW = 0.0f;
 const float PITCH = 0.0f;
-const float SPEED = 5.0f;
+const float SPEED = 10.0f;
 const float SENSITIVITY = 0.1f;
 const float ZOOM = 75;
 
@@ -57,7 +57,7 @@ public:
 	void SetView(float nearPlane, float farPlane, float ratio);
 	glm::mat4 GetViewMatrix();
 	glm::mat4 GetProjectionMatrix();
-	void ProcessKeyboard(CameraMovements direction, float deltaTime);
+	void ProcessKeyboard(CameraMovements direction, float deltaTime, bool flying);
 	void ProcessMouseMovements(float xoffset, float yoffset, GLboolean constraiPitch = true);
 	void ProcessMouseScroll(float yoffset);
 

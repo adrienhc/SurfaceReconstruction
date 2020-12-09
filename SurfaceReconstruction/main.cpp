@@ -3,6 +3,8 @@
 int main(int argc, char** argv)
 {
 
+    //Sleep(5000.0f);
+
     //GLFW WINDOW SETUP
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4); //for OpenGL 4.5
@@ -58,134 +60,60 @@ int main(int argc, char** argv)
     glEnable(GL_PROGRAM_POINT_SIZE);
     glEnable(GL_LINE_SMOOTH);
     // glEnable(GL_FRAMEBUFFER_SRGB); 
+    
+    //CDMLINE ARGS
+    std::string heightmap_path_decimated(argv[1]);
+    std::string heightmap_path_reconstructed(argv[2]);
+    std::string heightmap_path_original(argv[3]);
+    float height_scale = atof(argv[4]);
+    std::string noisemap_path(argv[5]);
+    float noise_scale = atof(argv[6]);
 
-    //ASSETS   
-    Asset* REF = new Asset(eCube, "ref", glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), 32.0f, glm::vec4(0.0f, 1.0f, 0.0f, 0.5f), false, "");
-    Asset* crosshair = new Asset(eSquare, "crosshair", glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(0.0f), 32.0f, glm::vec4(0.0f), true, "./textures/crosshair.png");
-    Asset* crate = new Asset(eCube, "crate", glm::vec3(0.4f), glm::vec3(0.8f), glm::vec3(1.0f), 32.0f, glm::vec4(1.0f), true, "./textures/cratebw.jpg");
-    Asset* floor = new Asset(eSquare, "floor", glm::vec3(0.5f), glm::vec3(1.0f), glm::vec3(0.5f), 2.0f, glm::vec4(1.0f), true, "./textures/floornoborder.jpg");
-    Asset* ceiling = new Asset(eSquare, "ceiling", glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(1.0f), 32.0f, glm::vec4(1.0f), true, "./textures/ceilingbw.jpg");
-    Asset* wall = new Asset(eSquare, "wall", glm::vec3(0.5f), glm::vec3(0.6f), glm::vec3(0.2f), 32.0f, glm::vec4(1.0f), true, "./textures/rivetWallbw.jpg");
-    Asset* beam = new Asset(eCube, "concrete", glm::vec3(0.5f), glm::vec3(0.6f), glm::vec3(0.2f), 32.0f, glm::vec4(0.8f, 0.8f, 0.8f, 1.0f), false, "");//"./textures/concretebw.jpg");
-    Asset* door = new Asset(eSquare, "door", glm::vec3(0.5f), glm::vec3(0.6f), glm::vec3(0.2f), 32.0f, glm::vec4(1.0f), true, "./textures/doorbw.jpg");
+    float model_size = 30.0f;
+    int lod = 3;
 
-    std::vector<Room*> World;
+    float model_height = -5.0f;
+    glm::vec3 light_offset = glm::vec3(model_size/2.0f, 0.0f, model_size/2.0f);
+    float light_height = 10.0f;
+    float light_radius = 20.0f;
 
-#if defined(WINDOWS)
+    //TERRAIN DECIMATED - ROOM O
+    nNode* RootDecimated = new nNode();
+    PointLight* pointLightDecimated = new PointLight(1, glm::vec3(0.7f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.007f, 0.0002f);
+    pointLightDecimated->setRadius(light_radius, 0);
+    nNode* RefDecimated = RootDecimated->AddChildrenRecursive(new nTranslate(glm::vec3(0.0f, light_height, 0.0f) + light_offset));
+    RefDecimated->AddChildren(new nPointLight(pointLightDecimated, 0));
+    Group* g_light_decimated = new Group(RootDecimated);
+    Terrain terrainDecimated = Terrain(glm::vec3(0.0f, model_height, 0.0f), 'N', height_scale, model_size, lod, heightmap_path_decimated, true, 0.0f);
 
-    struct staticRoom
-    {
-        //DIMENSIONS
-        int length;
-        int width;
-        int height;
-        glm::vec3 offset;
+    //TERRAIN RECONSTRUCTED - ROOM 1
+    nNode* RootReconstructed = new nNode();
+    PointLight* pointLightReconstructed = new PointLight(1, glm::vec3(0.7f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.007f, 0.0002f);
+    pointLightReconstructed->setRadius(light_radius, 0);
+    nNode* RefReconstructed = RootReconstructed->AddChildrenRecursive(new nTranslate(glm::vec3(0.0f, light_height, model_size) + light_offset));
+    RefReconstructed->AddChildren(new nPointLight(pointLightReconstructed, 0));
+    Group* g_light_reconstructed = new Group(RootReconstructed);
+    Terrain terrainReconstructed = Terrain(glm::vec3(0.0f, model_height, model_size), 'N', height_scale, model_size, lod, heightmap_path_reconstructed, true, 0.0f);
+    
 
-        //DOORS
-        std::vector<int> DoorN;
-        std::vector<int> DoorS;
-        std::vector<int> DoorE;
-        std::vector<int> DoorW;
+    //TERRAIN NOISE - ROOM 2
+    nNode* RootNoise = new nNode();
+    PointLight* pointLightNoise = new PointLight(1, glm::vec3(0.7f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.007f, 0.0002f);
+    pointLightNoise->setRadius(light_radius, 0);
+    nNode* RefNoise = RootNoise->AddChildrenRecursive(new nTranslate(glm::vec3(0.0f, light_height, 2.0f * model_size) + light_offset));
+    RefNoise->AddChildren(new nPointLight(pointLightNoise, 0));
+    Group* g_light_noise = new Group(RootNoise);
+    Terrain terrainNoise = Terrain(glm::vec3(0.0f, model_height, 2.0f * model_size), 'N', height_scale, model_size, lod, heightmap_path_reconstructed, true, 0.0f);
+    terrainNoise.AddNoise(noise_scale, noisemap_path, 0.5f);
 
-        //LIGHT
-        glm::vec3 LightColor;
-        std::vector<glm::vec3> lightPos;
-        std::vector<float> lightRadius;
-        glm::vec3 lightAmbient;
-        float lightConstant;
-        float lightLinear;
-        float lightQuadratic;
-
-        // CRATES
-        std::vector<asset> vertical;
-        std::vector<asset> horizontal;
-
-        // TARGETS
-        std::vector<asset> target;
-
-        // STAIRS
-        std::vector<asset> stairs;
-    };
-
-    std::vector<staticRoom> staticRooms;
-
-    struct staticRoom0 : public staticRoom
-    {
-        staticRoom0() : staticRoom() 
-        {
-            length = 16;
-            width = 30;
-            height = 12;
-            offset = glm::vec3(0.0f, 0.0f, 0.0f);
-
-            length = 16;
-            width = 30;
-            height = 12;
-            offset = glm::vec3(0.0f, 0.0f, 0.0f);
-
-            DoorN = { 8,0,14,7, 0,1 };
-            DoorS = { 5,2,8,4, 3,1,
-                    18,2,6,4, 3,1 };
-            DoorE = { 2,5,12,6, -1,1 };
-            DoorW = { 3,0,4,4, 1,1,
-                     9,0,4,4, 1,1,
-                     3,7,10,2, 2,1 };
-
-            //LIGHT
-            LightColor = glm::vec3(1.0f, 1.0f, 1.0f);
-            lightPos = { glm::vec3(width * 1.0f / 3.0f, height, length / 2.0f),
-                        glm::vec3(width * 2.0f / 3.0f, height, length / 2.0f) };
-            lightRadius = { 20.0f, 20.0f };
-            lightAmbient = glm::vec3(0.7f);
-            lightConstant = 1.0f;
-            lightLinear = 0.045f;//0.14f;//0.045f;
-            lightQuadratic = 0.0075f;//0.07f;//0.0075f;
-
-            // CRATES
-            vertical = {};
-
-            horizontal = {};
-
-            // TARGETS
-            target = {};
-
-            // STAIRS
-            stairs = { asset(8, 2, glm::vec3(5.0f, 0.0f, 2.0f), 'S'),
-                      asset(6, 2, glm::vec3(18.0f, 0.0f, 2.0f), 'S') };
-        };
-    } staticRoom0;
-
-    //staticRooms.push_back(staticRoom0);
-
-    for (int i = 0; i < staticRooms.size(); i++)
-    {
-        PointLight* pointLight = new PointLight(staticRooms[i].lightPos.size(), staticRooms[i].lightAmbient, staticRooms[i].LightColor, staticRooms[i].LightColor, staticRooms[i].lightConstant, staticRooms[i].lightLinear, staticRooms[i].lightQuadratic);
-
-        Room* room = new Room(staticRooms[i].length, staticRooms[i].width, staticRooms[i].height, staticRooms[i].offset, staticRooms[i].DoorN, staticRooms[i].DoorS, staticRooms[i].DoorE, staticRooms[i].DoorW,
-            staticRooms[i].lightPos, staticRooms[i].lightRadius, staticRooms[i].vertical, staticRooms[i].horizontal, staticRooms[i].target, staticRooms[i].stairs,
-            floor, wall, door, beam, ceiling, crate, pointLight);
-
-        room->makeRoom();
-        
-        World.push_back(room);
-    }
-
-#endif
-
-    //TERRAIN
-    nNode* Root = new nNode();
-    PointLight* pointLight = new PointLight(1, glm::vec3(0.7f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.007f, 0.0002f);
-    pointLight->setRadius(60.0f, 0);
-    nNode* Ref = Root->AddChildrenRecursive(new nTranslate(glm::vec3(0.0f, 10.0f, 0.0f)));
-    Ref->AddChildren(new nPointLight(pointLight, 0));
-    Group* g_light = new Group(Root);
-
-    std::string heightmap_path(argv[1]);
-    std::string noisemap_path(argv[3]);
-
-    Terrain terrain = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', atof(argv[2]), 30.0f, 10, heightmap_path, true, 0.0f);
-    Terrain terrainPoints = Terrain(glm::vec3(0.0f, -5.0f, 0.0f), 'N', atof(argv[2]), 30.0f, 10, heightmap_path, false, 0.0f);
-    terrainPoints.AddNoise(atof(argv[4]), noisemap_path, 1.0f);
+    //TERRAIN ORIGINAL- ROOM 3
+    nNode* RootOriginal = new nNode();
+    PointLight* pointLightOriginal = new PointLight(1, glm::vec3(0.7f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.007f, 0.0002f);
+    pointLightOriginal->setRadius(light_radius, 0);
+    nNode* RefOriginal = RootOriginal->AddChildrenRecursive(new nTranslate(glm::vec3(0.0f, light_height, 3.0f * model_size) + light_offset));
+    RefOriginal->AddChildren(new nPointLight(pointLightOriginal, 0));
+    Group* g_light_original = new Group(RootOriginal);
+    Terrain terrainOriginal = Terrain(glm::vec3(0.0f, model_height, 3.0f * model_size), 'N', height_scale, model_size, lod, heightmap_path_original, true, 0.0f);
    
    //RENDERER
     Renderer renderer = Renderer();
@@ -203,13 +131,22 @@ int main(int argc, char** argv)
     lastX = WINDOW_WIDTH / 2.0f;
     lastY = WINDOW_HEIGHT / 2.0f;
     float ratio = (float) WINDOW_WIDTH / (float) WINDOW_HEIGHT;
-    camera.SetView(0.005f, 50.0f, ratio);
+    camera.SetView(0.005f, 200.0f, ratio);
 
     Player Player(&camera, nullptr);
 
     //LAYERS
-    Shader batchShader = Shader("shaders/batch/batchShader.vs", "shaders/batch/batchShader.fs"); 
-    SceneLayer scene = SceneLayer(&camera, &batchShader);
+    Shader batchShaderDecimated = Shader("shaders/batch/batchShader.vs", "shaders/batch/batchShader.fs"); 
+    SceneLayer sceneDecimated = SceneLayer(&camera, &batchShaderDecimated);
+    
+    Shader batchShaderReconstructed = Shader("shaders/batch/batchShader.vs", "shaders/batch/batchShader.fs");
+    SceneLayer sceneReconstructed = SceneLayer(&camera, &batchShaderReconstructed);
+    
+    Shader batchShaderNoise = Shader("shaders/batch/batchShader.vs", "shaders/batch/batchShader.fs");
+    SceneLayer sceneNoise = SceneLayer(&camera, &batchShaderNoise);
+
+    Shader batchShaderOriginal = Shader("shaders/batch/batchShader.vs", "shaders/batch/batchShader.fs");
+    SceneLayer sceneOriginal = SceneLayer(&camera, &batchShaderOriginal);
 
     Shader batchShaderPoints = Shader("shaders/batch/batchShader.vs", "shaders/batch/batchShader.fs");
     SceneLayer scenePoints = SceneLayer(&camera, &batchShaderPoints);
@@ -223,11 +160,17 @@ int main(int argc, char** argv)
     float deltaTimeAcc = 0.0f;
     int Frames = 0;
 
-    scene.AddLight(g_light, true);
-    terrain.addLayer(&scene);
+    sceneDecimated.AddLight(g_light_decimated, true);
+    terrainDecimated.addLayer(&sceneDecimated);
 
-    scenePoints.AddLight(g_light);
-    terrainPoints.addLayer(&scenePoints);
+    sceneReconstructed.AddLight(g_light_reconstructed, true);
+    terrainReconstructed.addLayer(&sceneReconstructed);
+
+    sceneNoise.AddLight(g_light_noise, true);
+    terrainNoise.addLayer(&sceneNoise);
+    
+    sceneOriginal.AddLight(g_light_original, true);
+    terrainOriginal.addLayer(&sceneOriginal);
 
     //RENDER LOOP
     bool printNext = false;
@@ -258,14 +201,29 @@ int main(int argc, char** argv)
         }
 
         //WORLD BUILDING
-
         if(BuildWorld == true)
         {
             BuildWorld = false;
+
             depthmap.Clear();
-            depthmap.AddLight(g_light, false);
-            terrain.addLayer(&depthmap);
-            depthmap.Render(); //Render DepthMap of scene from each of light's layers POV
+            depthmap.AddLight(g_light_decimated, false);
+            terrainDecimated.addLayer(&depthmap);
+            depthmap.Render(); 
+
+            depthmap.Clear();
+            depthmap.AddLight(g_light_reconstructed, false);
+            terrainReconstructed.addLayer(&depthmap);
+            depthmap.Render();
+            
+            depthmap.Clear();
+            depthmap.AddLight(g_light_noise, false);
+            terrainNoise.addLayer(&depthmap);
+            depthmap.Render();
+
+            depthmap.Clear();
+            depthmap.AddLight(g_light_original, false);
+            terrainOriginal.addLayer(&depthmap);
+            depthmap.Render();
         }
         
         //INPUT PROCESSING
@@ -281,26 +239,20 @@ int main(int argc, char** argv)
   
         //ROOM LAYER
         //STATIC GEOMETRY
-        for(int i = 0; i < World.size(); i++)
-        {
-            World[i]->addLightsLayerCull(&scene, true);
-            World[i]->addLayoutLayerCull(&scene);   
-        }
-
         if (polygon)
         {
             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         }
         else
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        scene.RenderKeep();
+
+        sceneDecimated.RenderKeep();
+        sceneReconstructed.RenderKeep();
+        sceneNoise.RenderKeep();
+        sceneOriginal.RenderKeep();
+
         //SKYBOX LAYER
         renderer.RenderSkybox(&skybox, &camera);
-
-        glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-        glPointSize(4.0f);
-        scenePoints.SetDepthOffset(-0.0001f);
-        scenePoints.RenderKeep();
 
         if(firstPass)
             firstPass = false;
@@ -314,27 +266,11 @@ int main(int argc, char** argv)
         glfwPollEvents();
     }
 
-    delete REF;
-    delete crosshair;
-    delete floor;
-    delete wall;
-    delete door;
-    delete ceiling;
-    delete crate;
-    delete beam;
-
-    for(int i = 0; i < World.size(); i++)
-    {
-        delete World[i];
-    }
     //terminate GLFW Window
     //glfwTerminate();
 
     return 0;
 }
-
-
-
 
 
 void framebuffer_size_callback( GLFWwindow* window, int width, int height)
@@ -369,15 +305,15 @@ void process_input(GLFWwindow* window)
             camera.Gravity(deltaTime);
 
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            camera.ProcessKeyboard(FORWARD, deltaTime);
+            camera.ProcessKeyboard(FORWARD, deltaTime, flyCam);
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            camera.ProcessKeyboard(BACKWARDS, deltaTime);
+            camera.ProcessKeyboard(BACKWARDS, deltaTime, flyCam);
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            camera.ProcessKeyboard(LEFT, deltaTime);
+            camera.ProcessKeyboard(LEFT, deltaTime, flyCam);
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            camera.ProcessKeyboard(RIGHT, deltaTime);
+            camera.ProcessKeyboard(RIGHT, deltaTime, flyCam);
         if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-            camera.ProcessKeyboard(UP, deltaTime);
+            camera.ProcessKeyboard(UP, deltaTime, flyCam);
         if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
         {
             if(!Weapon::reload)

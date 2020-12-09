@@ -30,30 +30,37 @@ glm::mat4 Camera::GetProjectionMatrix()
 	return glm::perspective(glm::radians(Zoom), ViewRatio, NearPlane, FarPlane);
 }
 
-void Camera::ProcessKeyboard(CameraMovements direction, float deltaTime)
+void Camera::ProcessKeyboard(CameraMovements direction, float deltaTime, bool flying)
 {
-	//float velocity = MovementSpeed * deltaTime;
-	/*if(direction == FORWARD)
-		Position += Front * velocity;
-	if(direction == BACKWARDS)
-		Position -= Front * velocity;
-	if(direction == LEFT)
-		Position -= Right * velocity;
-	if(direction == RIGHT)
-		Position += Right * velocity;*/
+	if (flying)
+	{
+		float velocity = SPEED * deltaTime;
+		if (direction == FORWARD)
+			Position += Front * velocity;
+		if (direction == BACKWARDS)
+			Position -= Front * velocity;
+		if (direction == LEFT)
+			Position -= Right * velocity;
+		if (direction == RIGHT)
+			Position += Right * velocity;
+		if (direction == UP)
+			Position += WorldUp * velocity;
+	}
+	else
+	{
+		glm::vec3 velocity = glm::vec3(MovementSpeed.x * deltaTime, MovementSpeed.y * deltaTime, MovementSpeed.z * deltaTime);
 
-	glm::vec3 velocity = glm::vec3(MovementSpeed.x * deltaTime, MovementSpeed.y * deltaTime, MovementSpeed.z * deltaTime);
-	
-	if(direction == FORWARD)
-		Position += glm::vec3(Front.x * velocity.x, 0.0f, Front.z * velocity.z); //PROBLEM, DEPENDS ON CAMERA, DECOMPOSE VEC 
-	if(direction == BACKWARDS)
-		Position -= glm::vec3(Front.x * velocity.x, 0.0f, Front.z * velocity.z);
-	if(direction == LEFT)
-		Position -= glm::vec3(Right.x * velocity.x, 0.0f, Right.z * velocity.z);
-	if(direction == RIGHT)
-		Position += glm::vec3(Right.x * velocity.x, 0.0f, Right.z * velocity.z);
-	if(direction == UP)
-		Position += WorldUp * velocity.y;
+		if (direction == FORWARD)
+			Position += glm::vec3(Front.x * velocity.x, 0.0f, Front.z * velocity.z); //PROBLEM, DEPENDS ON CAMERA, DECOMPOSE VEC 
+		if (direction == BACKWARDS)
+			Position -= glm::vec3(Front.x * velocity.x, 0.0f, Front.z * velocity.z);
+		if (direction == LEFT)
+			Position -= glm::vec3(Right.x * velocity.x, 0.0f, Right.z * velocity.z);
+		if (direction == RIGHT)
+			Position += glm::vec3(Right.x * velocity.x, 0.0f, Right.z * velocity.z);
+		if (direction == UP)
+			Position += WorldUp * velocity.y;
+	}
 
 	frustum = new Frustum(GetViewMatrix(), GetProjectionMatrix());
 }

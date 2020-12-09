@@ -276,7 +276,7 @@ void BatchRenderer::Submit(std::vector<Model*>& models, std::vector<glm::mat4>& 
 	int am = 1.0f * 255.0f; //ow found in Diff Texture
 	int di = 1.0f * 255.0f; //ow found in Diff Texture
 	int sp = 1.0f * 255.0f; //ow found in Spec Texture
-	int sh = 32.0f; //DEFAULT SHININESS FOR MODELS -- NOT IN A TEXTURE -- ALWAYS USED
+	int sh = 16.0f; //DEFAULT SHININESS FOR MODELS -- NOT IN A TEXTURE -- ALWAYS USED
 	unsigned int vLighting = ( sh << 24 | sp << 16 | di << 8 | am );
 
 	Model* model;

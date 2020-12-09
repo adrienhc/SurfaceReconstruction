@@ -77,8 +77,13 @@ void SceneLayer::ShaderSetup()
 		std::vector<int> m_PointLightsRoomIndex = m_SceneLights[i]->GetLightsRoomIndex();
 
 		for(int j = 0; j < m_PointLights.size(); j++)
-		{	
-			bool active_shadow = ( glm::distance(playerPosition, m_PointLights[j]->position[m_PointLightsRoomIndex[j]]) < 30.0f);
+		{
+#if defined(OPTIMIZE_DEPTHMAP)
+			float depthmapRange = 30.0f;
+			bool active_shadow = (glm::distance(playerPosition, m_PointLights[j]->position[m_PointLightsRoomIndex[j]]) < depthmapRange);
+#else
+			bool active_shadow = true;
+#endif
 			m_Shader->setPointLight(m_PointLights[j], lightCount, m_PointLightsRoomIndex[j], active_shadow); //Set Light information
 			m_PointLights[j]->bindShadowMapBatch(m_Shader, m_PointLightsRoomIndex[j], lightCount); //Set Light Depth Map
 			lightCount++;
