@@ -264,7 +264,7 @@ void BatchRenderer::Submit(std::vector<Model*>& models, std::vector<glm::mat4>& 
 
 	//DEFAULT COLOR
 	//DIFFUSE RED IF NO TEXTURE
-	glm::vec4 col = glm::vec4(1.0f, 0.2f, 0.2f, 1.0f); 
+	glm::vec4 col = glm::vec4(155.0f/255.0f, 118.0f/255.0f, 83.0f/255.0f, 1.0f);//glm::vec4(0.4f, 0.4f, 0.4f, 1.0f); 
 	int r = col.x * 255.0f;
 	int g = col.y * 255.0f;
 	int b = col.z * 255.0f;
@@ -275,8 +275,8 @@ void BatchRenderer::Submit(std::vector<Model*>& models, std::vector<glm::mat4>& 
 	//FULL BLAST IF NOTHING 
 	int am = 1.0f * 255.0f; //ow found in Diff Texture
 	int di = 1.0f * 255.0f; //ow found in Diff Texture
-	int sp = 1.0f * 255.0f; //ow found in Spec Texture
-	int sh = 16.0f; //DEFAULT SHININESS FOR MODELS -- NOT IN A TEXTURE -- ALWAYS USED
+	int sp = 0.0f * 255.0f; //ow found in Spec Texture
+	int sh = 2.0f; //DEFAULT SHININESS FOR MODELS -- NOT IN A TEXTURE -- ALWAYS USED
 	unsigned int vLighting = ( sh << 24 | sp << 16 | di << 8 | am );
 
 	Model* model;

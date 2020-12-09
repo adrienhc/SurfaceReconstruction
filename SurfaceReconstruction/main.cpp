@@ -69,13 +69,14 @@ int main(int argc, char** argv)
     std::string noisemap_path(argv[5]);
     float noise_scale = atof(argv[6]);
 
-    float model_size = 30.0f;
-    int lod = 3;
+    float model_size = 10.0f;
+    int lod = 1;
+    bool heightmap_as_texture = false;
 
-    float model_height = -5.0f;
-    glm::vec3 light_offset = glm::vec3(model_size/2.0f, 0.0f, model_size/2.0f);
+    float model_height = -1.0f;
+    glm::vec3 light_offset = glm::vec3(-5.0f, 0.0f, model_size/2.0f);
     float light_height = 10.0f;
-    float light_radius = 20.0f;
+    float light_radius = 40.0f;
 
     //TERRAIN DECIMATED - ROOM O
     nNode* RootDecimated = new nNode();
@@ -84,7 +85,7 @@ int main(int argc, char** argv)
     nNode* RefDecimated = RootDecimated->AddChildrenRecursive(new nTranslate(glm::vec3(0.0f, light_height, 0.0f) + light_offset));
     RefDecimated->AddChildren(new nPointLight(pointLightDecimated, 0));
     Group* g_light_decimated = new Group(RootDecimated);
-    Terrain terrainDecimated = Terrain(glm::vec3(0.0f, model_height, 0.0f), 'N', height_scale, model_size, lod, heightmap_path_decimated, true, 0.0f);
+    Terrain terrainDecimated = Terrain(glm::vec3(0.0f, model_height, 0.0f), 'N', height_scale, model_size, lod, heightmap_path_decimated, heightmap_as_texture, 0.0f);
 
     //TERRAIN RECONSTRUCTED - ROOM 1
     nNode* RootReconstructed = new nNode();
@@ -93,7 +94,7 @@ int main(int argc, char** argv)
     nNode* RefReconstructed = RootReconstructed->AddChildrenRecursive(new nTranslate(glm::vec3(0.0f, light_height, model_size) + light_offset));
     RefReconstructed->AddChildren(new nPointLight(pointLightReconstructed, 0));
     Group* g_light_reconstructed = new Group(RootReconstructed);
-    Terrain terrainReconstructed = Terrain(glm::vec3(0.0f, model_height, model_size), 'N', height_scale, model_size, lod, heightmap_path_reconstructed, true, 0.0f);
+    Terrain terrainReconstructed = Terrain(glm::vec3(0.0f, model_height, model_size), 'N', height_scale, model_size, lod, heightmap_path_reconstructed, heightmap_as_texture, 0.0f);
     
 
     //TERRAIN NOISE - ROOM 2
@@ -103,7 +104,7 @@ int main(int argc, char** argv)
     nNode* RefNoise = RootNoise->AddChildrenRecursive(new nTranslate(glm::vec3(0.0f, light_height, 2.0f * model_size) + light_offset));
     RefNoise->AddChildren(new nPointLight(pointLightNoise, 0));
     Group* g_light_noise = new Group(RootNoise);
-    Terrain terrainNoise = Terrain(glm::vec3(0.0f, model_height, 2.0f * model_size), 'N', height_scale, model_size, lod, heightmap_path_reconstructed, true, 0.0f);
+    Terrain terrainNoise = Terrain(glm::vec3(0.0f, model_height, 2.0f * model_size), 'N', height_scale, model_size, lod, heightmap_path_reconstructed, heightmap_as_texture, 0.0f);
     terrainNoise.AddNoise(noise_scale, noisemap_path, 0.5f);
 
     //TERRAIN ORIGINAL- ROOM 3
@@ -113,7 +114,7 @@ int main(int argc, char** argv)
     nNode* RefOriginal = RootOriginal->AddChildrenRecursive(new nTranslate(glm::vec3(0.0f, light_height, 3.0f * model_size) + light_offset));
     RefOriginal->AddChildren(new nPointLight(pointLightOriginal, 0));
     Group* g_light_original = new Group(RootOriginal);
-    Terrain terrainOriginal = Terrain(glm::vec3(0.0f, model_height, 3.0f * model_size), 'N', height_scale, model_size, lod, heightmap_path_original, true, 0.0f);
+    Terrain terrainOriginal = Terrain(glm::vec3(0.0f, model_height, 3.0f * model_size), 'N', height_scale, model_size, lod, heightmap_path_original, heightmap_as_texture, 0.0f);
    
    //RENDERER
     Renderer renderer = Renderer();
